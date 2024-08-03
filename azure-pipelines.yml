@@ -10,10 +10,26 @@ pool:
   vmImage: ubuntu-latest
   
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '$(AzureSubscription)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az vm start --resource-group $(resourceGroupName) --name $(vmName)'
+    failOnStandardError: true
+    arguments: '--resource-group $(resourceGroupName) --name $(vmName)'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo "Waiting for VM to be ready..."
+    while [ $(az vm show -g $(resourceGroupName) -n $(vmName) --query 'powerState' -o tsv) != "VM running" ]; do
+      sleep 10
+    done
+  displayName: 'Wait for VM to be ready'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '$(AzureSubscription)'
+    scriptType: 'bash'
+    scriptLocation: 'scriptPath'
+    scriptPath: '~/.build.sh'
+    arguments: '--resource-group $(resourceGroupName) --name $(vmName)'
