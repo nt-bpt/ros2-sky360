@@ -12,7 +12,7 @@ pool:
 steps:
 - task: AzureCLI@2
   inputs:
-    azureSubscription: '$(AzureSubscription)'
+    azureSubscription: $(AzureSubscription)
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: 'az vm start --resource-group $(resourceGroupName) --name $(vmName)'
@@ -28,7 +28,7 @@ steps:
 
 - task: AzureCLI@2
   inputs:
-    azureSubscription: '$(AzureSubscription)'
+    azureSubscription: $(AzureSubscription)
     scriptType: 'bash'
     scriptLocation: 'scriptPath'
     scriptPath: '~/.build.sh'
