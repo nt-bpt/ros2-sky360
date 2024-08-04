@@ -6,6 +6,12 @@
 trigger:
 - main
 
+variables:
+  - name: vmName
+    value: $(vmName)
+  - name: resourceGroupName
+    value: $(resourceGroupName)
+  
 pool:
   vmImage: ubuntu-latest
   
