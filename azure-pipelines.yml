@@ -5,12 +5,6 @@
 
 trigger:
 - main
-
-variables:
-  - name: vmName
-    value: $(vmName)
-  - name: resourceGroupName
-    value: $(resourceGroupName)
   
 pool:
   vmImage: ubuntu-latest
@@ -21,13 +15,12 @@ steps:
     azureSubscription: 'armSky'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az vm start --resource-group $(resourceGroupName) --name $(vmName)'
+    inlineScript: 'az vm start --resource-group $(RESOURCEGROUPNAME) --name $(VMNAME)'
     failOnStandardError: true
-    arguments: '--resource-group $(resourceGroupName) --name $(vmName)'
 
 - script: |
     echo "Waiting for VM to be ready..."
-    while [ $(az vm show -g $(resourceGroupName) -n $(vmName) --query 'powerState' -o tsv) != "VM running" ]; do
+    while [ $(az vm show -g $(RESOURCEGROUPNAME) -n $(VMNAME) --query 'powerState' -o tsv) != "VM running" ]; do
       sleep 10
     done
   displayName: 'Wait for VM to be ready'
@@ -38,4 +31,4 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'scriptPath'
     scriptPath: '~/.build.sh'
-    arguments: '--resource-group $(resourceGroupName) --name $(vmName)'
+    arguments: '--resource-group $(RESOURCEGROUPNAME) --name $(VMNAME)'
