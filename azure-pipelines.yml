@@ -15,12 +15,12 @@ steps:
     azureSubscription: 'armSky'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az vm start --resource-group "sky360" --name "orangepi5"'
+    inlineScript: 'az vm start --resource-group "sky360" --name "armtesting"'
     failOnStandardError: true
 
 - script: |
     echo "Waiting for VM to be ready..."
-    while [ $(az vm show -g "sky360" -n "orangepi5" --query 'powerState' -o tsv) != "VM running" ]; do
+    while [ $(az vm show -g "sky360" -n "armtesting" --query 'powerState' -o tsv) != "VM running" ]; do
       sleep 10
     done
   displayName: 'Wait for VM to be ready'
@@ -31,4 +31,4 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'scriptPath'
     scriptPath: '~/.build.sh'
-    arguments: '--resource-group "sky360" --name "orangepi5"'
+    arguments: '--resource-group "sky360" --name "armtesting"'
