@@ -25,10 +25,18 @@ steps:
     done
   displayName: 'Wait for VM to be ready'
 
-- task: AzureCLI@2
+- task: CopyFilesOverSSH@0
   inputs:
-    azureSubscription: 'armSky'
-    scriptType: 'bash'
-    scriptLocation: 'scriptPath'
-    scriptPath: '~/.build.sh'
-    arguments: '--resource-group "sky360" --name "armtesting"'
+    sshEndpoint: 'armvm'
+    contents: '**'
+    targetFolder: '/home/orangepi/azurebuild/'
+    cleanTargetFolder: true
+    cleanHiddenFilesInTarget: true
+    readyTimeout: '20000'
+    
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'armvm'
+    runOptions: 'script'
+    scriptPath: '/home/orangepi/azurebuild/build.sh'
+    readyTimeout: '20000'
