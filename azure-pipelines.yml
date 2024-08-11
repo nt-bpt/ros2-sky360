@@ -32,11 +32,11 @@ steps:
     targetFolder: '/home/orangepi/azurebuild/'
     cleanTargetFolder: true
     cleanHiddenFilesInTarget: true
-    readyTimeout: '20000'
+    readyTimeout: '60000'
     
 - task: SSH@0
   inputs:
     sshEndpoint: 'armvm'
     runOptions: 'script'
     scriptPath: '/home/orangepi/azurebuild/build.sh'
-    readyTimeout: '20000'
+    readyTimeout: '60000'
