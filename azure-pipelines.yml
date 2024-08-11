@@ -29,7 +29,7 @@ steps:
   inputs:
     sshEndpoint: 'armvm'
     runOptions: 'script'
-    scriptPath: '/home/orangepi/azurebuild/build.sh'
+    scriptPath: '/home/orangepi/azurebuild/./build.sh'
     readyTimeout: '60000'
 
 
