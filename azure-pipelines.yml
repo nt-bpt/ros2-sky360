@@ -25,18 +25,12 @@ steps:
     done
   displayName: 'Wait for VM to be ready'
 
-- task: CopyFilesOverSSH@0
-  inputs:
-    sshEndpoint: 'armvm'
-    contents: '**'
-    targetFolder: '/home/orangepi/azurebuild/'
-    cleanTargetFolder: true
-    cleanHiddenFilesInTarget: true
-    readyTimeout: '60000'
-    
 - task: SSH@0
   inputs:
     sshEndpoint: 'armvm'
     runOptions: 'script'
     scriptPath: '/home/orangepi/azurebuild/build.sh'
     readyTimeout: '60000'
+
+
+    
