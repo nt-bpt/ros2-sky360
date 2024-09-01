@@ -8,16 +8,16 @@ pipeline {
     }
 
     stages {
-        stage('Setup') {
+
+        stage('Check installed packages') {
             steps {
                 script {
-                    // Source the ROS setup files
-                    sh "source ${ROS_SETUP}"
-                    sh "source ${ROS2_WS_SETUP}"
+                    // Check the installed packages
+                    sh 'dpkg -l'
                 }
             }
         }
-
+        
         stage('SonarQube') {
             steps {
                 script {
