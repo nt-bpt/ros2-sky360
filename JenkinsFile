@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent "arm64"
 
     environment {
         ROS_SETUP = '/opt/ros/humble/setup.bash'
