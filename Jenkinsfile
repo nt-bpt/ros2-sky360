@@ -47,7 +47,7 @@ pipeline {
         }
         failure {
             echo 'Build failed!'
-            mail to: ${env.ALERT_EMAIL},
+            mail to: "${ALERT_EMAIL}",
                  subject: "Build Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
                  body: "The build has failed. Please check the Jenkins console output for more details."
         }
