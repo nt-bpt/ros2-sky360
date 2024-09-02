@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'arm64' }
+    agent { label 'orangepi5plusarm64' }
 
     environment {
         ROS_SETUP = '/opt/ros/humble/setup.bash'
@@ -17,12 +17,14 @@ pipeline {
                 }
             }
         }
-        
+
         stage('SonarQube') {
             steps {
                 script {
-                    // Run the SonarQube analysis
-                    sh 'sonar-scanner'
+                    scannerHome = tool 'sonarqube'
+                }
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
